@@ -85,7 +85,7 @@ bun tauri dev
 
 ---
 
-📦 Production Build
+## 📦 Production Build
 
 ```bash
 bun build
