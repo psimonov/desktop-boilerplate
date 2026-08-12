@@ -1,182 +1,115 @@
-# 🖥️ Desktop Boilerplate (Cross-Platform)
+# Desktop Boilerplate
 
-A modern starter template for building cross-platform desktop applications using **React + Tauri + Rsbuild + Biome**.
-
----
-
-## ⚙️ Tech Stack
-
-- **Rsbuild** – fast build tool powered by Rspack
-- **React + TypeScript** – frontend UI layer
-- **Tauri** – lightweight native desktop runtime (Windows / macOS / Linux)
-- **Biome** – ultra-fast formatter and linter (alternative to ESLint + Prettier)
+English · [Español](README.es.md) · [Français](README.fr.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Italiano](README.it.md) · [Русский](README.ru.md) · [简体中文](README.zh-CN.md) · [हिन्दी](README.hi.md) · [العربية](README.ar.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
 
 ---
 
-## 📦 Requirements
+A minimal cross-platform desktop application starter built with Tauri, React, TypeScript, Rsbuild, Bun, and Biome.
 
-Before starting, make sure you have installed:
+## Overview
 
-- Node.js or Bun (Bun is used in this project)
-- Bun → https://bun.sh
-- Rust toolchain → https://rustup.rs
-- Platform-specific Tauri dependencies → https://tauri.app/start/prerequisites
+Desktop Boilerplate provides a small, understandable baseline for teams starting a native desktop application with a web UI and Rust host. It wires together development, production builds, Tauri packaging, type checking, and code-quality tooling without imposing an application architecture or UI framework.
 
----
+This repository is a development template, not a ready-to-distribute end-user product.
 
-## 🚀 Project Setup
+## Features
 
-### 1. Create project with Rsbuild
+- Tauri 2 native application shell with a Rust backend.
+- React and TypeScript frontend.
+- Rsbuild/Rspack development and production builds.
+- Bun package management and script execution.
+- Biome formatting and static analysis.
+- Tauri packaging configuration for Windows, macOS, and Linux.
+
+## Requirements
+
+- Latest stable Bun.
+- Stable Rust toolchain with Cargo.
+- Platform-specific prerequisites required by Tauri 2.
+- Windows, macOS, or Linux development environment supported by Tauri.
+
+Follow the official [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/) before running the desktop application. Linux system packages vary by distribution.
+
+## Installation
+
+Use this repository as a template or clone it, then install dependencies:
 
 ```bash
-bun create rsbuild@latest
-```
-
-Select options:
-
-* Project name: `desktop-boilerplate`
-* Framework: `React`
-* Language: `TypeScript`
-* Additional tools: `Biome`
-* Optional skills: `None`
-
-### 2. Install dependencies
-
-```bash
+git clone https://github.com/psimonov/desktop-boilerplate.git
+cd desktop-boilerplate
 bun install
 ```
 
-### 3. Add Tauri CLI
+Rename the package, Tauri product name, bundle identifier, Rust crate, author metadata, and application icons before starting a real product.
+
+## Quick start
+
+Run the desktop application with hot reload:
 
 ```bash
-bun add -D @tauri-apps/cli@latest
+bun run tauri:dev
 ```
 
-### 4. Initialize Tauri
+Run only the frontend development server:
 
 ```bash
-bun tauri init
+bun run dev
 ```
 
-Configuration:
+## Usage
 
-* App name: `desktop-boilerplate`
-* Window title: `Desktop Boilerplate`
-* Web assets location: `../dist`
-* Dev server URL: `http://localhost:3000`
-* Frontend dev command: `bun run dev`
-* Frontend build command: `bun run build`
-
----
-
-## 🧪 Development
-
-Start frontend
+Build the frontend:
 
 ```bash
-bun dev
+bun run build
 ```
 
-Start Tauri app
+Create native platform packages:
 
 ```bash
-bun tauri dev
+bun run tauri:build
 ```
 
----
-
-## 📦 Production Build
+Run code-quality checks or formatting:
 
 ```bash
-bun build
+bun run check
+bun run format
 ```
 
-```bash
-bun tauri build
-```
+Tauri builds only for the current host platform. Producing installers for every target requires CI runners for Windows, macOS, and Linux.
 
----
+## Configuration
 
-## 📁 Project Structure
+- `rsbuild.config.ts` configures the frontend build and development server.
+- `src-tauri/tauri.conf.json` configures the desktop application, bundle identifier, windows, frontend commands, and package targets.
+- `src-tauri/Cargo.toml` defines the Rust crate and Tauri dependencies.
+- `biome.json` defines formatting and static-analysis rules.
+
+The default development server is `http://localhost:3000`, and production frontend assets are read from `dist/`.
+
+## Project structure
 
 ```text
 desktop-boilerplate/
-├── src/                 # React frontend
-├── src-tauri/           # Tauri (Rust backend)
-│   ├── src/
-│   ├── Cargo.toml
-│   └── tauri.conf.json
 ├── public/
-├── rsbuild.config.ts
+├── src/
+├── src-tauri/
+├── biome.json
+├── bun.lock
 ├── package.json
-└── biome.json
+├── rsbuild.config.ts
+└── tsconfig.json
 ```
 
----
+## Security
 
-## 🧹 Code Quality
+Replace the sample bundle identifier and review Tauri capabilities and content security policy before shipping a product. Report template vulnerabilities privately through [GitHub Security Advisories](https://github.com/psimonov/desktop-boilerplate/security/advisories/new).
 
-Run Biome checks:
+## Contributing
 
-```bash
-bunx biome check .
-```
+Open an issue before changing the baseline stack or introducing an opinionated application dependency. Pull requests should keep the template minimal and pass `bun run check` and `bun run build`.
 
-Format code:
+## License
 
-```bash
-bunx biome format .
-```
-
----
-
-## 🧠 Notes
-
-### Tauri configuration
-
-Make sure:
-* `dist` output matches Rsbuild build output
-* dev server URL matches `http://localhost:3000`
-
----
-
-### Common issues
-
-Blank window in Tauri
-
-* Check devPath in tauri.conf.json
-* Ensure frontend dev server is running
-
-
-Frontend not loading
-
-* Verify dev server URL matches configuration
-
-
-Rust build issues
-
-```bash
-rustup update
-```
-
----
-
-## 🎯 Purpose
-
-This boilerplate is designed for:
-
-* Cross-platform desktop MVPs
-* Internal tools
-* Lightweight enterprise utilities
-* Electron alternatives with lower resource usage
-
----
-
-## 🧩 Possible Improvements
-
-* State management (Zustand / Redux Toolkit)
-* UI kit integration (shadcn/ui or custom design system)
-* Auto-updater for Tauri
-* IPC abstraction layer
-* CI/CD pipelines (GitHub Actions)
-* Multi-platform release automation
+Distributed under the [MIT License](LICENSE).
